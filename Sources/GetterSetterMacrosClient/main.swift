@@ -28,6 +28,7 @@ class TestClass {
     private var prop4: Int
     private var prop5: Int
     private var prop6: Int
+    @NoPropGetter()
     private var prop7: Int
     private var prop8: Int
     

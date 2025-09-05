@@ -10,6 +10,8 @@ struct GetterSetterMacrosPlugin: CompilerPlugin {
         ObjectGetterMacro.self,
         ObjectSetterMacro.self,
         PropertyGetterMacro.self,
-        PropertySetterMacro.self
+        PropertySetterMacro.self,
+        NoPropGetterMacro.self,
+        NoPropSetterMacro.self
     ]
 }

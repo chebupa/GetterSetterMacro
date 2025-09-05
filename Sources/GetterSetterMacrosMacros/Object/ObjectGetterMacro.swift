@@ -57,7 +57,10 @@ public struct ObjectGetterMacro: MemberMacro {
                 return nil
             }
             
-            guard !hasAttribute(varDecl, named: "PropGetter") else { return nil }
+            // Пропускаем свойства, помеченные явным генерированием геттера (PropGetter)
+            // и свойства, помеченные запретом генерации геттера (NoPropGetter)
+            guard !hasAttribute(varDecl, named: "PropGetter"),
+                  !hasAttribute(varDecl, named: "NoPropGetter") else { return nil }
 
             
             let propertyName = identifier.identifier.text

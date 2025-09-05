@@ -17,6 +17,8 @@ public struct ObjectSetterMacro: MemberMacro {
         in context: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
         let accessPrefix = (extractConfiguredAccessLevel(from: node)?.rawValue ?? "") + " "
+        let isStruct = decl.is(StructDeclSyntax.self)
+        let mutatingPrefix = isStruct ? "mutating " : ""
         // decl already works for structs, classes, and actors
         return decl.memberBlock.members.compactMap { member in
             guard let varDecl = member.decl.as(VariableDeclSyntax.self),
@@ -25,13 +27,17 @@ public struct ObjectSetterMacro: MemberMacro {
                 return nil
             }
             
-            guard !hasAttribute(varDecl, named: "PropSetter") else { return nil }
+            // Пропускаем свойства, помеченные явным генерированием сеттера (PropSetter)
+            // и свойства, помеченные запретом генерации сеттера (NoPropSetter)
+            guard !hasAttribute(varDecl, named: "PropSetter"),
+                  !hasAttribute(varDecl, named: "NoPropSetter") else { return nil }
             
             let propertyName = identifier.identifier.text
             let capitalized = propertyName.prefix(1).uppercased() + propertyName.dropFirst()
+            let type = binding.typeAnnotation?.type ?? "Any"
             
             return """
-        \(raw: accessPrefix)func set\(raw: capitalized)() -> \(binding.typeAnnotation?.type ?? "Any") {
+        \(raw: accessPrefix)\(raw: mutatingPrefix)func set\(raw: capitalized)(_ newValue: \(type)) {
             self.\(raw: propertyName) = newValue
         }
         """

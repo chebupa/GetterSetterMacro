@@ -33,3 +33,9 @@ public macro PropGetter(_ accessLevel: AccessLevel? = .internal) = #externalMacr
 @attached(peer, names: arbitrary)
 public macro PropSetter(_ accessLevel: AccessLevel? = .internal) = #externalMacro(module: "GetterSetterMacrosMacros", type: "PropertySetterMacro")
 
+@attached(peer, names: arbitrary)
+public macro NoPropGetter() = #externalMacro(module: "GetterSetterMacrosMacros", type: "NoPropGetterMacro")
+
+@attached(peer, names: arbitrary)
+public macro NoPropSetter() = #externalMacro(module: "GetterSetterMacrosMacros", type: "NoPropSetterMacro")
+
