@@ -1,14 +1,14 @@
-## GetterSetterMacro — автогенерация getter/setter для Swift
+## GetterSetterMacro — auto-generate getters/setters for Swift
 
-Короткий набор Swift-макросов для автогенерации методов доступа для свойств:
-- **@ObjGetter / @ObjSetter** — сгенерировать геттеры/сеттеры для всех свойств типа
-- **@PropGetter / @PropSetter** — сгенерировать геттер/сеттер для конкретного свойства
-- **@NoPropGetter / @NoPropSetter** — запретить генерацию для конкретного свойства
+A tiny set of Swift macros that generate accessor methods for stored properties:
+- **@ObjGetter / @ObjSetter**: generate getters/setters for all properties of a type
+- **@PropGetter / @PropSetter**: generate a getter/setter for a specific property
+- **@NoPropGetter / @NoPropSetter**: opt out a specific property from generation
 
-Поддерживаются `struct`, `class`, `actor`. Для `struct` сеттеры автоматически помечаются как `mutating`.
+Supports `struct`, `class`, and `actor`. For `struct`, setters are generated as `mutating` automatically.
 
-### Установка (Swift Package Manager)
-Добавьте пакет в `Package.swift` вашего проекта:
+### Installation (Swift Package Manager)
+Add the package to your project’s `Package.swift`:
 
 ```swift
 dependencies: [
@@ -22,22 +22,21 @@ targets: [
 ]
 ```
 
-Импортируйте библиотеку там, где используете макросы:
+Import the library where you use the macros:
 
 ```swift
 import GetterSetterMacro
 ```
 
-### Доступность (Access Level)
-Все макросы принимают необязательный параметр уровня доступа `AccessLevel`:
-`private`, `fileprivate`, `internal`, `package`, `public`, `open`.
-По умолчанию — `internal`.
+### Access Level
+All macros accept an optional `AccessLevel` parameter: `private`, `fileprivate`, `internal`, `package`, `public`, `open`.
+Default is `internal`.
 
-Пример: `@ObjGetter(.public)` сделает сгенерированные методы публичными.
+Example: `@ObjGetter(.public)` will make generated methods public.
 
-### Быстрые примеры
+### Quick examples
 
-1) Генерация для всего типа
+1) Generate for the whole type
 ```swift
 import GetterSetterMacro
 
@@ -47,10 +46,11 @@ struct User {
     private var name: String
     private var age: Int
 }
-// Сгенерируется: public func getName() -> String, public mutating func setName(_ newValue: String), и т.д.
+// Generated: public func getName() -> String,
+//            public mutating func setName(_ newValue: String), etc.
 ```
 
-2) Пропуск отдельных свойств
+2) Skip specific properties
 ```swift
 @ObjGetter()
 @ObjSetter()
@@ -59,29 +59,31 @@ final class Config {
     private var title: String = ""
     @NoPropSetter() private var id: Int = 0
 }
-// Для secret не будет get, для id не будет set
+// No getter for `secret`, no setter for `id`.
 ```
 
-3) Генерация для конкретного свойства
+3) Generate for a single property
 ```swift
 struct Session {
     @PropGetter(.public)
     @PropSetter(.public)
     private var token: String
 }
-// Сгенерируется: public func getToken() -> String
-//                public mutating func setToken(_ newValue: String)
+// Generated: public func getToken() -> String
+//            public mutating func setToken(_ newValue: String)
 ```
 
-### Правила/поведение
-- Имена методов: `get<Property>()` и `set<Property>(_: )`, где `<Property>` — имя свойства с заглавной буквы (например, `name` → `getName`/`setName`).
-- Уровень доступа методов управляется аргументом макроса. Если не указан — `internal`.
-- Макросы уровня типа `@ObjGetter/@ObjSetter` автоматически пропускают свойства, помеченные `@PropGetter/@PropSetter` и `@NoPropGetter/@NoPropSetter`, чтобы избежать дублирования.
-- Для корректного вывода типов рекомендуется явно указывать типы свойств (иначе тип может быть сгенерирован как `Any`).
-- Объявляйте свойства по одному (одна переменная на одно `var`), чтобы генерация была предсказуемой.
+### Behavior
+- Method names: `get<Property>()` and `set<Property>(_: )`, where `<Property>` is the property name with a capitalized first letter (e.g., `name` → `getName`/`setName`).
+- Access level of generated methods is controlled by the macro argument; defaults to `internal`.
+- Type-level macros `@ObjGetter/@ObjSetter` automatically skip properties annotated with `@PropGetter/@PropSetter` and `@NoPropGetter/@NoPropSetter` to avoid duplicates.
+- To ensure correct return/parameter types, explicitly specify property types (otherwise `Any` may be used).
+- Declare one stored property per `var` for predictable generation.
 
-### Требования
-- Swift 6 toolchain, SPM
-- Платформы: macOS 10.15+, iOS 13+, tvOS 13+, watchOS 6+, macCatalyst 13+
+### Technical Requirements
+- Swift 6.0 toolchain
+- Swift Package Manager
+- Dependency: `swift-syntax` (used by the macro implementation; version `600.0.0-latest` in this package)
+- Supported platforms (as in `Package.swift`): macOS 10.15+, iOS 13+, tvOS 13+, watchOS 6+, macCatalyst 13+
 
-Готово! Подключите пакет, примените нужные аннотации и получайте готовые методы доступа без рутины.
+That’s it! Add the package, annotate your types or properties, and let the macros remove the boilerplate.
