@@ -7,7 +7,7 @@ A tiny set of Swift macros that generate accessor methods for stored properties:
 
 Supports `struct`, `class`, and `actor`. For `struct`, setters are generated as `mutating` automatically.
 
-### Installation (Swift Package Manager)
+## Installation (Swift Package Manager)
 Add the package to your project’s `Package.swift`:
 
 ```swift
@@ -28,13 +28,13 @@ Import the library where you use the macros:
 import GetterSetterMacro
 ```
 
-### Access Level
+## Access Level
 All macros accept an optional `AccessLevel` parameter: `private`, `fileprivate`, `internal`, `package`, `public`, `open`.
 Default is `internal`.
 
 Example: `@ObjGetter(.public)` will make generated methods public.
 
-### Quick examples
+## Quick examples
 
 1) Generate for the whole type
 ```swift
@@ -73,14 +73,14 @@ struct Session {
 //            public mutating func setToken(_ newValue: String)
 ```
 
-### Behavior
+## Behavior
 - Method names: `get<Property>()` and `set<Property>(_: )`, where `<Property>` is the property name with a capitalized first letter (e.g., `name` → `getName`/`setName`).
 - Access level of generated methods is controlled by the macro argument; defaults to `internal`.
 - Type-level macros `@ObjGetter/@ObjSetter` automatically skip properties annotated with `@PropGetter/@PropSetter` and `@NoPropGetter/@NoPropSetter` to avoid duplicates.
 - To ensure correct return/parameter types, explicitly specify property types (otherwise `Any` may be used).
 - Declare one stored property per `var` for predictable generation.
 
-### Technical Requirements
+## Technical Requirements
 - Swift 6.0 toolchain
 - Swift Package Manager
 - Dependency: `swift-syntax` (used by the macro implementation; version `600.0.0-latest` in this package)
