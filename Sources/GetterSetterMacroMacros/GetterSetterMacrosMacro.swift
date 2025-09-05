@@ -4,7 +4,7 @@ import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 @main
-struct GetterSetterMacrosPlugin: CompilerPlugin {
+struct GetterSetterMacroPlugin: CompilerPlugin {
     
     let providingMacros: [Macro.Type] = [
         ObjectGetterMacro.self,

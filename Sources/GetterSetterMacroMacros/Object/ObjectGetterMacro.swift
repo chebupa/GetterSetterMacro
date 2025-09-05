@@ -1,6 +1,6 @@
 //
 //  ObjectGetterMacro.swift
-//  GetterSetterMacros
+//  GetterSetterMacro
 //
 //  Created by aristarh on 05.09.2025.
 //

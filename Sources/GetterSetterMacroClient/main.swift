@@ -1,4 +1,4 @@
-import GetterSetterMacros
+import GetterSetterMacro
 
 
 @ObjGetter()

@@ -5,17 +5,17 @@ import PackageDescription
 import CompilerPluginSupport
 
 let package = Package(
-    name: "GetterSetterMacros",
+    name: "GetterSetterMacro",
     platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "GetterSetterMacros",
-            targets: ["GetterSetterMacros"]
+            name: "GetterSetterMacro",
+            targets: ["GetterSetterMacro"]
         ),
         .executable(
-            name: "GetterSetterMacrosClient",
-            targets: ["GetterSetterMacrosClient"]
+            name: "GetterSetterMacroClient",
+            targets: ["GetterSetterMacroClient"]
         ),
     ],
     dependencies: [
@@ -26,7 +26,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         // Macro implementation that performs the source transformation of a macro.
         .macro(
-            name: "GetterSetterMacrosMacros",
+            name: "GetterSetterMacroMacros",
             dependencies: [
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
@@ -34,10 +34,10 @@ let package = Package(
         ),
 
         // Library that exposes a macro as part of its API, which is used in client programs.
-        .target(name: "GetterSetterMacros", dependencies: ["GetterSetterMacrosMacros"]),
+        .target(name: "GetterSetterMacro", dependencies: ["GetterSetterMacroMacros"]),
 
         // A client of the library, which is able to use the macro in its own code.
-        .executableTarget(name: "GetterSetterMacrosClient", dependencies: ["GetterSetterMacros"]),
+        .executableTarget(name: "GetterSetterMacroClient", dependencies: ["GetterSetterMacro"]),
 
     ]
 )
