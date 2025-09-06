@@ -38,8 +38,6 @@ Example: `@ObjGetter(.public)` will make generated methods public.
 
 1) Generate for the whole type
 ```swift
-import GetterSetterMacro
-
 @ObjGetter(.public)
 @ObjSetter(.public)
 struct User {
