@@ -45,9 +45,13 @@ import GetterSetterMacro
 struct User {
     private var name: String
     private var age: Int
+
+    // Generated:
+    // public func getName() -> String,
+    // public mutating func setName(_ newValue: String)
+    // public func getAge() -> Int
+    // public mutating func setAge(_ newValue: Int)
 }
-// Generated: public func getName() -> String,
-//            public mutating func setName(_ newValue: String), etc.
 ```
 
 2) Skip specific properties
@@ -55,9 +59,11 @@ struct User {
 @ObjGetter()
 @ObjSetter()
 final class Config {
-    @NoPropGetter() private var secret: String = ""
+    @NoPropGetter()
+    private var secret: String = ""
     private var title: String = ""
-    @NoPropSetter() private var id: Int = 0
+    @NoPropSetter()
+    private var id: Int = 0
 }
 // No getter for `secret`, no setter for `id`.
 ```
@@ -68,9 +74,11 @@ struct Session {
     @PropGetter(.public)
     @PropSetter(.public)
     private var token: String
+
+    // Generated:
+    // public func getToken() -> String
+    // public mutating func setToken(_ newValue: String)
 }
-// Generated: public func getToken() -> String
-//            public mutating func setToken(_ newValue: String)
 ```
 
 ## Behavior
