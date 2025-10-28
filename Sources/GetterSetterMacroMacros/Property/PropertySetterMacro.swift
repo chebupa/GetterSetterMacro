@@ -29,10 +29,12 @@ public struct PropertySetterMacro: PeerMacro {
         let capitalized = propertyName.prefix(1).uppercased() + propertyName.dropFirst()
         let type = binding.typeAnnotation?.type ?? "Any"
         
+        let isClass = declaration.parent?.as(ClassDeclSyntax.self) != nil
+        let mutatingKeyword = isClass ? "" : "mutating "
         
         return [
             """
-            \(raw: accessPrefix)mutating func set\(raw: capitalized)(_ newValue: \(type)) {
+            \(raw: accessPrefix)\(raw: mutatingKeyword)func set\(raw: capitalized)(_ newValue: \(type)) {
                 self.\(raw: propertyName) = newValue
             }
             """

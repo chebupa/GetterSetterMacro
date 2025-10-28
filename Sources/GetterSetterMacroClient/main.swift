@@ -54,3 +54,16 @@ class TestClass {
 }
 
 let testClass = TestClass()
+
+class FooClass {
+    
+    @PropSetter()
+    private var prop1: Int?
+    
+    init(prop1: Int? = nil) {
+        self.prop1 = prop1
+    }
+}
+
+let fooClass = FooClass()
+fooClass.setProp1(1)

@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:GetterSetterMacros}",
+            "name": "Debug GetterSetterMacrosClient",
+            "program": "${workspaceFolder:GetterSetterMacros}/.build/debug/GetterSetterMacrosClient",
+            "preLaunchTask": "swift: Build Debug GetterSetterMacrosClient"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:GetterSetterMacros}",
+            "name": "Release GetterSetterMacrosClient",
+            "program": "${workspaceFolder:GetterSetterMacros}/.build/release/GetterSetterMacrosClient",
+            "preLaunchTask": "swift: Build Release GetterSetterMacrosClient"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:GetterSetterMacro}",
+            "name": "Debug GetterSetterMacroClient",
+            "program": "${workspaceFolder:GetterSetterMacro}/.build/debug/GetterSetterMacroClient",
+            "preLaunchTask": "swift: Build Debug GetterSetterMacroClient"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:GetterSetterMacro}",
+            "name": "Release GetterSetterMacroClient",
+            "program": "${workspaceFolder:GetterSetterMacro}/.build/release/GetterSetterMacroClient",
+            "preLaunchTask": "swift: Build Release GetterSetterMacroClient"
+        }
+    ]
+}
